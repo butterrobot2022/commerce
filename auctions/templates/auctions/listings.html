@@ -1,0 +1,80 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+<h1>Listing: {{ item.title }}</h1><br>
+{% if status_code == 'open' %}
+{% if user != item.user %}
+<form method="post" action="{% url 'listings' list_title=item.title %}">
+    {% csrf_token %}
+<button class="btn btn-secondary" name="watchlist" type="submit">Add to Watchlist</button><br><br>
+</form>
+{% endif %}
+{% endif %}
+<img src="{{ item.image_url }}" width="40%" height="250px;">
+
+<br><br>
+<p>{{ item.text }}</p>
+
+<h1>${{ item.bid }}</h1>
+{% if title == item.title %}
+{{message}}
+{% endif %}
+<p>{{ num_bids }} bid(s) so far. </p>
+<form method="post" action="{% url 'listings' list_title=item.title %}">
+    {% csrf_token %}
+    {% if status_code == 'open' %}
+    {% if user != item.user %}
+    <div class="form-group">
+        <input class="form-control" autofocus type="text" name="bid" placeholder="Bid">
+    </div>
+    {% endif %}
+    {% else %}
+    <h3>Bid Closed.</h3>
+    {% if name == user %}
+        <h6>Congratulations! You've won the auction!</h6>
+    {% else %}
+    <h6>Winner of the Bid is: {{ name }}</h6>
+    {% endif %}
+    {% endif %}
+    {% if user == item.user %}
+    <button class="btn btn-secondary" name="close_bid" type="submit">Close Bid</button><br><br>
+    {% else %}
+    {% if status_code == 'open' %}
+    <button class="btn btn-primary" name="place_bid" type="submit">Place Bid</button><br><br>
+    {% endif %}
+    {% endif %}
+    <button class="btn btn-primary" name="comment" type="submit">Add Comment</button>
+</form>
+
+
+<h2>Details</h2>
+<ul>
+    <li>
+        Listed by: <a href="#">{{ item.user }}</a>
+    </li>
+    {% if item.category is not None %}
+    <li>
+        Category: {{ item.category }}.
+    </li>
+    {% else %}
+    <li>
+        Category: No Category Listed.
+    </li>
+    {% endif %}
+</ul>
+
+<h2>Comments:</h2>
+<hr>
+{% for comment in comments %}
+{% if comment.title == item.title %}
+<b>{{ comment.user }}:</b><br>
+{{ comment.comment }}<br>
+{{ comment.time }}
+<hr>
+{% endif %}
+
+{% endfor %}
+
+{% endblock %}
+

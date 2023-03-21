@@ -1,0 +1,56 @@
+{% extends 'auctions/layout.html' %}
+
+{% block title %} New Listing {% endblock %}
+
+{% block body %}
+
+<form action="{% url 'create_listing' %}" method="post">
+    {% csrf_token %}
+    <h3>Title</h3>
+    <div class="input-group mb-3">
+        <input type="text" name="title" class="form-control" placeholder="Title" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+    <h3>Description</h3>
+    <!-- <textarea name="descr"></textarea><br><br> -->
+    <div class="form-floating mb-3">
+        <textarea class="form-control" id="myTextarea" rows="3" name="descr"></textarea>
+        <label for="myTextarea">Enter Description</label>
+      </div>
+      
+
+    <h3>Bid Price</h3>
+    <!-- <input type="number" width="50%" name="bid" required><br><br> -->
+    <div class="form-floating mb-3">
+        <input type="number" class="form-control" id="myFloatInput" step="0.01" name="bid">
+        <label for="myFloatInput">Enter Price</label>
+      </div>
+      
+
+    
+    <h3>Image url</h3>
+    <!-- <input type="text" width="50%" name="image"><br><br> -->
+    <div class="input-group mb-3">
+        <input type="text" name="image" class="form-control" placeholder="Image URL" aria-label="Username" aria-describedby="basic-addon1">
+      </div>
+
+    <h3>Category</h3>
+    <!-- <input type="text" width="50%" name="category"><br><br> -->
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" name="category" placeholder="Select an option" aria-label="Select an option" aria-describedby="basic-addon2">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">Options</button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">Technology</a></li>
+          <li><a class="dropdown-item" href="#">Comedy</a></li>
+          <li><a class="dropdown-item" href="#">Romance</a></li>
+          <li><a class="dropdown-item" href="#">Travel</a></li>
+          <li><a class="dropdown-item" href="#">Travel</a></li>
+          <li><a class="dropdown-item" href="#">Style</a></li>
+          <li><a class="dropdown-item" href="#">Music</a></li>
+        </ul>
+      </div>
+      
+    <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+{% endblock %}

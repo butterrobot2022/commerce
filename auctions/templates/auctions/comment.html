@@ -1,0 +1,13 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+
+<h1>Add Comment for {{ item_name }}: </h1><br>
+<form method="post" action="{% url 'comment' item_name=item_name %}">
+    {% csrf_token %}
+    <textarea name="user_comment" style="width: 650px; height: 150px;" required></textarea><br>   
+    <button class="btn btn-primary" name="comment" type="submit">Add Comment</button><br><br>
+</form>
+{% endblock %}
+

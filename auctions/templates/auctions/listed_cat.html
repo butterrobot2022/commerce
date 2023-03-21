@@ -1,0 +1,27 @@
+{% extends 'auctions/layout.html' %}
+
+
+{% block body %}
+<h2>Listed Category: {{ category }}</h2>
+{% for listing in items %}
+<div class="container" style="border: 1px solid #cccccc; border-radius: 15px;">
+   <div class="row">
+       <div class="col-lg-3">
+           <img src="{{ listing.image_url }}"width="70%" height="225px;" style="border-radius: 10px;" alt="">
+           </div>
+       <div class="col-lg-9">
+           <br>
+   <a href="{% url 'listings' list_title=listing.title %}"><h5>{{listing.title}}</h5><br></a>
+    <h5>{{listing.text}}</h5><br>
+    <h5>Price: ${{listing.bid}}</h5><br>
+   <!-- <h5>{{ listing.text }}</h5><br> -->
+   {{ listing.time }}
+</div>
+</div>
+</div>
+<br>
+   
+{% endfor %}
+
+
+{% endblock %}
